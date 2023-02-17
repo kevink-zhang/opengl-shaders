@@ -19,24 +19,107 @@ void Mesh::createCube(const char *textureFile, const char *bgTextureFile)
 
     // TODO: Create VBO data for positions, normals, UVs, and indices
 
-    std::vector<glm::vec4> pos {glm::vec4(-2, -2, 0, 1),
-                                glm::vec4(2, -2, 0, 1),
-                                glm::vec4(2, 2, 0, 1),
-                                glm::vec4(-2, 2, 0, 1)};
+    std::vector<glm::vec4> pos {glm::vec4(1, 1, 1, 1), //+Z
+                                glm::vec4(1, -1, 1, 1),
+                                glm::vec4(-1, -1, 1, 1),
+                                glm::vec4(-1, 1, 1, 1),
 
-    std::vector<glm::vec4> nor {glm::vec4(0, 0, 1, 0),
+                                glm::vec4(1, 1, 1, 1), //+X
+                                glm::vec4(1, -1, 1, 1),
+                                glm::vec4(1, -1, -1, 1),
+                                glm::vec4(1, 1, -1, 1),
+
+                                glm::vec4(1, 1, 1, 1), //+Y
+                                glm::vec4(-1, 1, 1, 1),
+                                glm::vec4(-1, 1, -1, 1),
+                                glm::vec4(1, 1, -1, 1),
+
+                                glm::vec4(1, 1, -1, 1), //-Z
+                                glm::vec4(1, -1, -1, 1),
+                                glm::vec4(-1, -1, -1, 1),
+                                glm::vec4(-1, 1, -1, 1),
+
+                                glm::vec4(-1, 1, 1, 1), //-X
+                                glm::vec4(-1, -1, 1, 1),
+                                glm::vec4(-1, -1, -1, 1),
+                                glm::vec4(-1, 1, -1, 1),
+
+                                glm::vec4(1, -1, 1, 1), //-Y
+                                glm::vec4(-1, -1, 1, 1),
+                                glm::vec4(-1, -1, -1, 1),
+                                glm::vec4(1, -1, -1, 1)
+                               };
+
+    std::vector<glm::vec4> nor {glm::vec4(0, 0, 1, 0), //+Z
                                 glm::vec4(0, 0, 1, 0),
                                 glm::vec4(0, 0, 1, 0),
-                                glm::vec4(0, 0, 1, 0)};
+                                glm::vec4(0, 0, 1, 0),
+
+                                glm::vec4(1, 0, 0, 0), //+X
+                                glm::vec4(1, 0, 0, 0),
+                                glm::vec4(1, 0, 0, 0),
+                                glm::vec4(1, 0, 0, 0),
+
+                                glm::vec4(0, 1, 0, 0), //+Y
+                                glm::vec4(0, 1, 0, 0),
+                                glm::vec4(0, 1, 0, 0),
+                                glm::vec4(0, 1, 0, 0),
+
+                                glm::vec4(0, 0, -1, 0), //-Z
+                                glm::vec4(0, 0, -1, 0),
+                                glm::vec4(0, 0, -1, 0),
+                                glm::vec4(0, 0, -1, 0),
+
+                                glm::vec4(-1, 0, 0, 0), //-X
+                                glm::vec4(-1, 0, 0, 0),
+                                glm::vec4(-1, 0, 0, 0),
+                                glm::vec4(-1, 0, 0, 0),
+
+                                glm::vec4(0, -1, 0, 0), //-Y
+                                glm::vec4(0, -1, 0, 0),
+                                glm::vec4(0, -1, 0, 0),
+                                glm::vec4(0, -1, 0, 0)
+                               };
 
     std::vector<glm::vec2> uvs {glm::vec2(0, 0),
                                 glm::vec2(1, 0),
                                 glm::vec2(1, 1),
-                                glm::vec2(0, 1)};
+                                glm::vec2(0, 1),
 
-    std::vector<GLuint> idx {0, 1, 2, 0, 2, 3};
+                                glm::vec2(0, 0),
+                                glm::vec2(1, 0),
+                                glm::vec2(1, 1),
+                                glm::vec2(0, 1),
 
-    count = 6; // TODO: Set "count" to the number of indices in your index VBO
+                                glm::vec2(0, 0),
+                                glm::vec2(1, 0),
+                                glm::vec2(1, 1),
+                                glm::vec2(0, 1),
+
+                                glm::vec2(0, 0),
+                                glm::vec2(1, 0),
+                                glm::vec2(1, 1),
+                                glm::vec2(0, 1),
+
+                                glm::vec2(0, 0),
+                                glm::vec2(1, 0),
+                                glm::vec2(1, 1),
+                                glm::vec2(0, 1),
+
+                                glm::vec2(0, 0),
+                                glm::vec2(1, 0),
+                                glm::vec2(1, 1),
+                                glm::vec2(0, 1)
+                               };
+
+    std::vector<GLuint> idx {0, 1, 2, 2, 3, 0,
+                            4, 5, 6, 6, 7, 4,
+                            8, 9, 10, 10, 11, 8,
+                            12, 13, 14, 14, 15, 12,
+                            16, 17, 18, 18, 19, 16,
+                            20, 21, 22, 22, 23, 20};
+
+    count = 36; // TODO: Set "count" to the number of indices in your index VBO
 
     generateIdx();
     context->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufIdx);

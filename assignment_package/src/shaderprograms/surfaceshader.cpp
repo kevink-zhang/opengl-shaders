@@ -24,6 +24,8 @@ void SurfaceShader::setupMemberVars()
     unifSampler2D  = context->glGetUniformLocation(prog, "u_Texture");
     unifTime = context->glGetUniformLocation(prog, "u_Time");
 
+    cameraPos = context->glGetUniformLocation(prog, "u_Camera");
+
     context->printGLErrorLog();
 }
 
@@ -128,5 +130,36 @@ void SurfaceShader::setViewProjMatrix(const glm::mat4 &v, const glm::mat4 &p)
                        GL_FALSE,
                     // Pointer to the first element of the matrix
                        &p[0][0]);
+    }
+}
+
+void SurfaceShader::setCameraMatrix(const glm::mat4 &model)
+{
+    useMe();
+
+    if (unifModel != -1) {
+        // Pass a 4x4 matrix into a uniform variable in our shader
+                        // Handle to the matrix variable on the GPU
+        context->glUniformMatrix4fv(unifModel,
+                        // How many matrices to pass
+                           1,
+                        // Transpose the matrix? OpenGL uses column-major, so no.
+                           GL_FALSE,
+                        // Pointer to the first element of the matrix
+                           &model[0][0]);
+
+    }
+
+    if (unifModelInvTr != -1) {
+        glm::mat3 modelinvtr = glm::inverse(glm::transpose(glm::mat3(model)));
+        // Pass a 4x4 matrix into a uniform variable in our shader
+                        // Handle to the matrix variable on the GPU
+        context->glUniformMatrix3fv(unifModelInvTr,
+                        // How many matrices to pass
+                           1,
+                        // Transpose the matrix? OpenGL uses column-major, so no.
+                           GL_FALSE,
+                        // Pointer to the first element of the matrix
+                           &modelinvtr[0][0]);
     }
 }

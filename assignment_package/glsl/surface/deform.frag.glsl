@@ -11,5 +11,9 @@ layout(location = 0) out vec3 out_Col;
 void main()
 {
     // TODO Homework 4
-    out_Col = vec3(0, 0, 0);
+    vec3 a = vec3(0.5,0.5,0.5);
+    vec3 b = cross(fs_Nor,fs_Pos);
+    vec3 c = vec3(1,1,1);
+    vec3 d = vec3(0.0,0.33,0.67);
+    out_Col = a + b * cos(c * u_Time/100.f + d);
 }

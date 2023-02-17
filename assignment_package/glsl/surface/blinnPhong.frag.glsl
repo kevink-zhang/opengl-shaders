@@ -21,6 +21,24 @@ layout(location = 0) out vec3 out_Col;//This is the final output color that you 
 
 void main()
 {
-    // TODO Homework 4
-    out_Col = vec3(0, 0, 0);
+    // Material base color (before shading)
+    vec4 diffuseColor = texture(u_Texture, fs_UV);
+
+    //Calculate Blinn-Phong
+    float specularIntensity = max(pow(dot(normalize(fs_LightVec), normalize(fs_Nor)), 100), 0);
+
+    // Calculate the diffuse term for Lambert shading
+    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
+    // Avoid negative lighting values
+    diffuseTerm = clamp(diffuseTerm, 0, 1);
+
+    float ambientTerm = 0.2;
+
+    float lightIntensity = specularIntensity + diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier
+                                                        //to simulate ambient lighting. This ensures that faces that are not
+                                                        //lit by our point light are not completely black.
+
+    // Compute final shaded color
+    out_Col = vec3(diffuseColor.rgb * lightIntensity);
+//    out_Col = normalize(abs(fs_Nor));
 }

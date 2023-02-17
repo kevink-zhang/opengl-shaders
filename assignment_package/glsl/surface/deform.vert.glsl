@@ -18,7 +18,9 @@ void main()
     // TODO Homework 4
     fs_Nor = normalize(u_ModelInvTr * vec3(vs_Nor));
 
-    vec4 modelposition = u_Model * vs_Pos;
+    vec4 foo = vs_Pos;//smoothstep(vs_Pos, normalize(vs_Pos)*10, vec4(u_Time));
+    vec4 modelposition = u_Model * foo;
     fs_Pos = vec3(modelposition);
+
     gl_Position = u_Proj * u_View * modelposition;
 }

@@ -9,5 +9,7 @@ uniform sampler2D u_RenderedTexture;
 void main()
 {
     // TODO Homework 5
-    color = vec3(0, 0, 0);
+    vec3 c = texture(u_RenderedTexture, fs_UV).rgb;
+
+    color = vec3((0.21 * c[0] + 0.72 * c[1] + 0.07 * c[2]) * (1-length(fs_UV-vec2(0.5))));
 }
