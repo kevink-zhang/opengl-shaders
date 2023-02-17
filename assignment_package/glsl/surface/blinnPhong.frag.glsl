@@ -14,7 +14,7 @@ in vec4 fs_Nor;
 in vec4 fs_LightVec;
 in vec2 fs_UV;
 
-in vec4 fs_CameraPos;
+in vec3 fs_CameraPos;
 in vec4 fs_Pos;
 
 layout(location = 0) out vec3 out_Col;//This is the final output color that you will see on your screen for the pixel that is currently being processed.

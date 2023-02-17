@@ -18,6 +18,7 @@ uniform mat3 u_ModelInvTr;  // The inverse transpose of the model matrix.
 
 uniform mat4 u_View;        // The matrix that defines the camera's transformation.
 uniform mat4 u_Proj;        // The matrix that defines the camera's projection.
+uniform vec3 u_Camera;
 
 in vec4 vs_Pos;             // The array of vertex positions passed to the shader
 
@@ -46,7 +47,7 @@ void main()
 
     vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
 
-    fs_CameraPos = inverse(u_View) * vec4(0,0,0,1);
+    fs_CameraPos = vec4(u_Camera[0], u_Camera[1], u_Camera[2], 1);
 
     fs_Pos = modelposition;
 

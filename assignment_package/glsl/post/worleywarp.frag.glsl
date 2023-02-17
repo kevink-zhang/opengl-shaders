@@ -37,25 +37,30 @@ float noise(float aaa, float bbb, float ccc) {
 }
 
 
+const float gridmax = 35.f;
+float ix = 1.f/u_Dimensions[0];
+float iy = 1.f/u_Dimensions[1];
 void main()
 {
+    float p = 0.5 * sin(u_Time/100.f) + 0.5;
+    float grid = 40-gridmax*p;
     // TODO Homework 5
-    vec3 c = texture(u_RenderedTexture, fs_UV).rgb;
     vec2 pos = vec2(fs_UV[0]*u_Dimensions[0],fs_UV[1]*u_Dimensions[1]);
 
-    //worley noise
-    float wx = floor(pos[0]/20);
-    float wy = floor(pos[1]/20);
 
+    //worley noise
+    float wx = floor(pos[0]/grid);
+    float wy = floor(pos[1]/grid);
+    //red
     float cc = -1.f;
     for(float i = wx - 1; i < wx + 2; i++){
         for(float j = wy-1; j < wy + 2; j++) {
-            float wxx = i*20.f + 20.f*noise(i, j, 0);
-            float wxy = j*20.f + 20.f*noise(i, j, sqrt(i*i + j*j));
+            float wxx = i*grid + grid*noise(i, j, 0);
+            float wxy = j*grid + grid*noise(i, j, sqrt(i*i + j*j));
 
             if(cc == -1 || cc > length(vec2(wxx, wxy) - pos)){
                 cc = length(vec2(wxx, wxy) - pos);
-                color = texture(u_RenderedTexture, vec2(wxx/u_Dimensions[0], wxy/u_Dimensions[1])).rgb;
+                color = texture(u_RenderedTexture, vec2(wxx*ix, wxy*iy)).rgb;
             }
         }
     }
